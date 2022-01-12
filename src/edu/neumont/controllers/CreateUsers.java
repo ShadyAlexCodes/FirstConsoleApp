@@ -7,8 +7,9 @@ import java.util.Scanner;
 
 public class CreateUsers {
 
-    Scanner scanner = new Scanner(System.in);
+    static Scanner scanner = new Scanner(System.in);
 
+    private final int AGE = 18;
     private final Person personXander = new Person("Mr.", "Xander", "Endre", "", 18);
 
     public void createUsers() {
@@ -16,7 +17,6 @@ public class CreateUsers {
         //Crate a list to store user information;
         Person person = null;
         ArrayList<Person> people = new ArrayList<Person>();
-
 
         String input = "";
         while (!input.equalsIgnoreCase("done")) {
@@ -28,9 +28,11 @@ public class CreateUsers {
 
             String suffix = getUserInput("Please enter your suffix. (This can be blank!)");
 
-            int age = Integer.parseInt(getUserInput("Please enter your age: "));
+            person = new Person(prefix, firstName, lastName, suffix);
 
-            person = new Person(prefix, firstName, lastName, suffix, age);
+            int age = getInteger("Hello, " + person.getCompleteName() + "! What is your age?");
+
+            person.setAge(age);
 
             people.add(person);
 
@@ -42,18 +44,38 @@ public class CreateUsers {
         }
 
         for (int i = 0; i < people.size(); i++) {
-            if(people.get(i).getAge() < personXander.getAge()) {
-                System.out.println(people.get(i).toString() + " and is older than " + personXander.getCompleteName());
+            if(people.get(i).getAge() > personXander.getAge()) {
+                System.out.println(people.get(i).toString() + " and are older than " + personXander.getCompleteName() + " who is " + personXander.getAge());
             } else
-                System.out.println(people.get(i).toString() + " and is younger than " + personXander.getCompleteName());
+                System.out.println(people.get(i).toString() + " and are younger than " + personXander.getCompleteName() + " who is " + personXander.getAge());
 
         }
 
     }
 
-    private String getUserInput(String prompt) {
+    private static String getUserInput(String prompt) {
         System.out.println(prompt);
         return scanner.nextLine();
     }
+
+    private static int getInteger(String prompt) {
+        int i = 0;
+
+        boolean valid = false;
+        while (!valid) {
+            String string = getUserInput(prompt);
+            try {
+                i = Integer.parseInt(string);
+                valid = true;
+            }
+            catch (NumberFormatException ex) {
+                System.out.println("You have entered an invalid number.");
+            }
+        }
+
+        return i;
+    }
+
+
 
 }

@@ -20,6 +20,13 @@ public class Person {
         this.age = age;
     }
 
+    public Person(String prefix, String firstName, String lastName, String suffix) {
+        this.prefix = prefix;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.suffix = suffix;
+    }
+
     public String getPrefix() {
         return prefix;
     }
@@ -66,6 +73,6 @@ public class Person {
 
     @Override
     public String toString() {
-        return "Hello " + prefix + " " + firstName + " " + lastName + " " + suffix + " you are " + age;
+        return "Hello " + prefix + " " + firstName + " " + lastName + " " + suffix + " (" + age + ")";
     }
 }
